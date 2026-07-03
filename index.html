@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurelia Residences | Ultra-Luxury Cinematic Residential Tower</title>
+  <meta name="description" content="Welcome to Aurelia Residences, a cinematic, scroll-driven property showcase of ultra-luxury residences with panoramic views, sky villas, and world-class amenities.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="index.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+</head>
+<body>
+
+  <!-- 1. Luxury Preloader -->
+  <div id="preloader">
+    <div class="preloader-content">
+      <div class="luxury-logo">
+        <svg viewBox="0 0 100 100" class="gold-logo-svg">
+          <path d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z" fill="none" stroke="#D4AF37" stroke-width="2"/>
+          <path d="M50 15 L80 32 L80 68 L50 85 L20 68 L20 32 Z" fill="none" stroke="#D4AF37" stroke-dasharray="2,2"/>
+          <text x="50" y="55" font-family="'Cormorant Garamond', serif" font-size="28" fill="#D4AF37" text-anchor="middle" letter-spacing="2">A</text>
+        </svg>
+      </div>
+      <h2 class="preloader-title">AURELIA</h2>
+      <p class="preloader-subtitle">RESIDENCES</p>
+      <div class="loader-track">
+        <div class="loader-bar" id="loader-progress"></div>
+      </div>
+      <p class="loader-text" id="loader-status">Entering the Realm of Luxury...</p>
+    </div>
+  </div>
+
+  <!-- Ambient Cinematic Background Video (Always behind scroll) -->
+  <div class="global-video-container">
+    <video autoplay loop muted playsinline id="bg-drone-video">
+      <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c27d23d8c199580bfe053f3e9c5c7de04e1bfbb1&profile_id=165&oauth2_token_id=57447761" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <!-- 2. Header & Navigation -->
+  <header id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <span class="gold-text">AURELIA</span>
+        <span class="sub-logo">RESIDENCES</span>
+      </a>
+      <nav class="nav-links-wrapper">
+        <ul class="nav-links">
+          <li><a href="#walkthrough-section" class="nav-item">Walkthrough</a></li>
+          <li><a href="#properties-section" class="nav-item">Properties</a></li>
+          <li><a href="#floorplans-section" class="nav-item">Floor Plans</a></li>
+          <li><a href="#virtualtour-section" class="nav-item">360° Tour</a></li>
+          <li><a href="#amenities-section" class="nav-item">Amenities</a></li>
+          <li><a href="#location-section" class="nav-item">Location</a></li>
+          <li><a href="#calculator-section" class="nav-item">Calculator</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a href="#booking-section" class="btn btn-gold nav-cta-btn">Book Private Tour</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay Menu -->
+  <div class="mobile-menu-overlay" id="mobile-menu">
+    <div class="mobile-menu-content">
+      <ul class="mobile-links">
+        <li><a href="#walkthrough-section" class="mobile-item">Walkthrough</a></li>
+        <li><a href="#properties-section" class="mobile-item">Properties</a></li>
+        <li><a href="#floorplans-section" class="mobile-item">Floor Plans</a></li>
+        <li><a href="#virtualtour-section" class="mobile-item">360° Tour</a></li>
+        <li><a href="#amenities-section" class="mobile-item">Amenities</a></li>
+        <li><a href="#location-section" class="mobile-item">Location</a></li>
+        <li><a href="#calculator-section" class="mobile-item">Calculator</a></li>
+      </ul>
+      <a href="#booking-section" class="btn btn-gold mobile-cta">Book Private Tour</a>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="main-content">
+
+    <!-- 3. Hero Section & Cinematic Scroll Walkthrough -->
+    <section id="walkthrough-section" class="walkthrough-wrapper">
+      
+      <!-- Sticky Camera Frame Viewer -->
+      <div class="cinematic-viewer">
+        
+        <!-- Introductory Cinematic Cover Overlay -->
+        <div class="hero-intro-overlay" id="hero-intro">
+          <div class="hero-intro-content animate-on-load">
+            <span class="gold-subtitle">Introducing A New Era</span>
+            <h1 class="hero-serif-title">AURELIA</h1>
+            <p class="hero-intro-desc">A Symphony of Architecture & Light</p>
+            <div class="scroll-explore-hint">
+              <span class="mouse-icon">
+                <span class="scroll-wheel"></span>
+              </span>
+              <span>Scroll to Begin Tour</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Background Layers for 3D Camera Pan effect -->
+        <div class="scene-images-container">
+          <div class="scene-bg active" id="scene-bg-1" style="background-image: url('assets/scene1_arrival.png');"></div>
+          <div class="scene-bg" id="scene-bg-2" style="background-image: url('assets/scene2_lobby.png');"></div>
+          <div class="scene-bg" id="scene-bg-3" style="background-image: url('assets/scene3_elevator.png');"></div>
+          <div class="scene-bg" id="scene-bg-4" style="background-image: url('assets/scene4_living.png');"></div>
+          <div class="scene-bg" id="scene-bg-5" style="background-image: url('assets/scene5_dining.png');"></div>
+          <div class="scene-bg" id="scene-bg-6" style="background-image: url('assets/scene6_kitchen.png');"></div>
+          <div class="scene-bg" id="scene-bg-7" style="background-image: url('assets/scene7_bedroom.png');"></div>
+          <div class="scene-bg" id="scene-bg-8" style="background-image: url('assets/scene8_study.png');"></div>
+          <div class="scene-bg" id="scene-bg-9" style="background-image: url('assets/scene9_outdoor.png');"></div>
+        </div>
+
+        <!-- Mouse follow ambient lighting mask -->
+        <div class="mouse-glow-mask" id="glow-mask"></div>
+
+        <!-- Floating UI Progress Indicator -->
+        <div class="scene-progress-container">
+          <div class="progress-radial-wrapper">
+            <svg class="radial-progress-svg" viewBox="0 0 36 36">
+              <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              <path class="circle-progress" id="radial-progress-bar" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            </svg>
+            <div class="scene-number">
+              <span id="current-scene-num">01</span><span class="gold-text">/</span><span>09</span>
+            </div>
+          </div>
+          <span class="scene-indicator-label">Guided Tour</span>
+        </div>
+
+        <!-- Interactive Sound Button -->
+        <button class="ambient-sound-toggle" id="sound-btn" aria-label="Toggle Background Sound">
+          <i class="fa-solid fa-volume-xmark"></i>
+          <span>Sound Off</span>
+        </button>
+
+      </div>
+
+      <!-- Scrolling Content Trigger Blocks (Pinned) -->
+      <div class="scroll-scenes-triggers">
+        
+        <!-- Scene 1: Arrival -->
+        <div class="scene-trigger" id="trigger-scene-1">
+          <div class="scene-card glassmorphic left-card">
+            <span class="gold-tag">SCENE 01 — THE ARRIVAL</span>
+            <h2>Architectural Masterpiece</h2>
+            <p>Rising majestically into the golden hour sky, Aurelia Residences dominates the skyline with an iconic glass and champagne-gold structure. The transition from private city streets to the tranquil entrance gates sets a new benchmark in urban opulence.</p>
+            <div class="scene-card-footer">
+              <span><i class="fa-solid fa-hotel gold-text"></i> Gated Grand Entrance</span>
+              <span><i class="fa-solid fa-tree gold-text"></i> Landscaped Gardens</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scene 2: Lobby -->
+        <div class="scene-trigger" id="trigger-scene-2">
+          <div class="scene-card glassmorphic right-card">
+            <span class="gold-tag">SCENE 02 — THE GRAND LOBBY</span>
+            <h2>A Grand Reception</h2>
+            <p>Walk inside a multi-height lobby detailed with Italian Carrara marble, custom cascading crystal chandeliers, and curated contemporary sculpture. A dedicated 24/7 concierge desk stands ready to welcome you home.</p>
+            <div class="scene-card-footer">
+              <span><i class="fa-solid fa-bell-concierge gold-text"></i> Elite Concierge</span>
+              <span><i class="fa-solid fa-gem gold-text"></i> Italian Marble</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scene 3: Elevator -->
+        <div class="scene-trigger" id="trigger-scene-3">
+          <div class="scene-card glassmorphic left-card">
+            <span class="gold-tag">SCENE 03 — ELEVATOR TRANSITION</span>
+            <h2>Private Sky Ascension</h2>
+            <p>Step into the high-speed private glass elevator lined with gold-brass accents. Ascend directly to your residence, watching the city expand beneath you, before step-out gates open into your private foyer.</p>
+            <div class="scene-card-footer">
+              <span><i class="fa-solid fa-gauge-high gold-text"></i> High-Speed Lift</span>
+              <span><i class="fa-solid fa-key gold-text"></i> Biometric Security</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scene 4: Living Room -->
+        <div class="scene-trigger" id="trigger-scene-4">
+          <div class="scene-card glassmorphic right-card">
+            <span class="gold-tag">SCENE 04 — THE GREAT HALL</span>
+            <h2>Living Above the Clouds</h2>
+            <p>A double-height living room featuring 6-meter floor-to-ceiling acoustic glass panels framing a breathtaking, uninterrupted skyline view. Outfitted with Calacatta marble flooring and an integrated sleek linear gas fireplace.</p>
+            <div class="scene-card-footer">
+              <span><i class="fa-solid fa-arrows-up-down gold-text"></i> Double Height</span>
+              <span><i class="fa-solid fa-fire gold-text"></i> Fireplace Lounge</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scene 5: Dining Area -->
+        <div class="scene-trigger" id="trigger-scene-5">
+          <div class="scene-card glassmorphic left-card">
+            <span class="gold-tag">SCENE 05 — THE DINING SALON</span>
+            <h2>Immersive Banquets</h2>
+            <p>Elevate hosting with a spacious dining area that accommodates up to 14 guests. Framed by floating designer pendant lighting and direct access to the climate-controlled personal wine room.</p>
+            <div class="scene-card-footer">
+              <span><i class="fa-solid fa-wine-glass gold-text"></i> Wine Library</span>
+              <span><i class="fa-solid fa-lightbulb gold-text"></i> Custom Fixtures</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scene 6: Kitchen -->
+        <div class="scene-trigger" id="trigger-scene-6">
+          <div class="scene-card glassmorphic right-card">
+            <span class="gold-tag">SCENE 06 — CHEF'S KITCHEN</span>
+            <h2>Culinary Artistry</h2>
+            <p>A state-of-the-art modular kitchen featuring oak cabinetry, premium integrated Gaggenau appliances, a massive marble island counter, and hidden task-oriented LED strip lighting.</p>
+            <div class="scene-card-footer">
+              <span><i class="fa-solid fa-kitchen-set gold-text"></i> Gaggenau Systems</span>
+              <span><i class="fa-solid fa-box gold-text"></i> Oak Cabinetry</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scene 7: Bedroom -->
+        <div class="scene-trigger" id="trigger-scene-7">
+          <div class="scene-card glassmorphic left-card">
+            <span class="gold-tag">SCENE 07 — MASTER SUITE</span>
+            <h2>Sanctuary of Rest</h2>
+            <p>An exquisite, sun-drenched master bedroom featuring plush champagne linen, automated blackout shades, custom walk-in wardrobe, and direct glass door access to the private terrace.</p>
+            <div class="scene-card-footer">
+              <span><i class="fa-solid fa-bed gold-text"></i> King-size Suite</span>
+              <span><i class="fa-solid fa-shirt gold-text"></i> Walk-in Wardrobe</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scene 8: Study -->
+        <div class="scene-trigger" id="trigger-scene-8">
+          <div class="scene-card glassmorphic right-card">
+            <span class="gold-tag">SCENE 08 — EXECUTIVE STUDY</span>
+            <h2>Command Center</h2>
+            <p>A quiet retreat designed for business and contemplation. Styled with dark mahogany bookcases, ambient reading lamps, and soundproof double-walls to ensure peace and focus.</p>
+            <div class="scene-card-footer">
+              <span><i class="fa-solid fa-briefcase gold-text"></i> Soundproof Studio</span>
+              <span><i class="fa-solid fa-book gold-text"></i> Library Walls</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scene 9: Outdoor -->
+        <div class="scene-trigger" id="trigger-scene-9">
+          <div class="scene-card glassmorphic center-card">
+            <span class="gold-tag">SCENE 09 — SKY OASIS</span>
+            <h2>The Peak of Leisure</h2>
+            <p>Step onto the private sky terrace. Featuring a custom heated infinity pool merging seamlessly with the city's horizon, surrounded by plush loungers and a sky bar for sunset entertaining.</p>
+            <div class="scene-card-footer">
+              <span><i class="fa-solid fa-water gold-text"></i> Infinity Pool</span>
+              <span><i class="fa-solid fa-martini-glass-citrus gold-text"></i> Sky Bar Lounge</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- 4. Featured Luxury Properties Section -->
+    <section id="properties-section" class="section-padding dark-bg">
+      <div class="container">
+        <div class="section-header center-align">
+          <span class="gold-subtitle">EXQUISITE COLLECTIONS</span>
+          <h2 class="serif-title">Curated Residences</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <div class="properties-slider-container">
+          <div class="property-carousel-track" id="property-carousel">
+            
+            <!-- Property 1 -->
+            <div class="property-card glassmorphic">
+              <div class="property-image-wrapper">
+                <img src="assets/scene4_living.png" alt="The Penthouse Residence">
+                <div class="property-tag">Elite Tier</div>
+              </div>
+              <div class="property-info">
+                <h3>The Grand Penthouse</h3>
+                <p class="property-details">Floor 52-54 &bull; Duplex &bull; Panoramic Views</p>
+                <div class="property-specs">
+                  <span><i class="fa-solid fa-maximize"></i> 8,500 Sq.Ft</span>
+                  <span><i class="fa-solid fa-bed"></i> 5 Bedrooms</span>
+                  <span><i class="fa-solid fa-bath"></i> 6 Bathrooms</span>
+                </div>
+                <div class="property-price-action">
+                  <span class="price-label">Price Upon Request</span>
+                  <a href="#booking-section" class="btn btn-border-gold btn-sm">Enquire</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Property 2 -->
+            <div class="property-card glassmorphic">
+              <div class="property-image-wrapper">
+                <img src="assets/scene7_bedroom.png" alt="The Sky Villa">
+                <div class="property-tag">Vanguard Tier</div>
+              </div>
+              <div class="property-info">
+                <h3>The Sky Villa</h3>
+                <p class="property-details">Floor 40-50 &bull; Single-level Oasis</p>
+                <div class="property-specs">
+                  <span><i class="fa-solid fa-maximize"></i> 6,200 Sq.Ft</span>
+                  <span><i class="fa-solid fa-bed"></i> 4 Bedrooms</span>
+                  <span><i class="fa-solid fa-bath"></i> 5 Bathrooms</span>
+                </div>
+                <div class="property-price-action">
+                  <span class="price-label">Price Upon Request</span>
+                  <a href="#booking-section" class="btn btn-border-gold btn-sm">Enquire</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Property 3 -->
+            <div class="property-card glassmorphic">
+              <div class="property-image-wrapper">
+                <img src="assets/scene5_dining.png" alt="The Duplex Residence">
+                <div class="property-tag">Classic Tier</div>
+              </div>
+              <div class="property-info">
+                <h3>The Duplex Residence</h3>
+                <p class="property-details">Floor 25-35 &bull; Double Height Dining</p>
+                <div class="property-specs">
+                  <span><i class="fa-solid fa-maximize"></i> 5,500 Sq.Ft</span>
+                  <span><i class="fa-solid fa-bed"></i> 4 Bedrooms</span>
+                  <span><i class="fa-solid fa-bath"></i> 4 Bathrooms</span>
+                </div>
+                <div class="property-price-action">
+                  <span class="price-label">Price Upon Request</span>
+                  <a href="#booking-section" class="btn btn-border-gold btn-sm">Enquire</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Carousel Controls -->
+          <div class="carousel-nav">
+            <button class="carousel-btn prev-btn" id="prop-prev" aria-label="Previous Property"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="carousel-btn next-btn" id="prop-next" aria-label="Next Property"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Interactive Floor Plans Section -->
+    <section id="floorplans-section" class="section-padding black-bg">
+      <div class="container">
+        <div class="section-header center-align">
+          <span class="gold-subtitle">ARCHITECTURAL BLUEPRINTS</span>
+          <h2 class="serif-title">Interactive Floor Plans</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <div class="floorplan-toggle-buttons">
+          <button class="fp-toggle-btn active" data-plan="penthouse">The Grand Penthouse (8,500 sq ft)</button>
+          <button class="fp-toggle-btn" data-plan="skyvilla">The Sky Villa (6,200 sq ft)</button>
+          <button class="fp-toggle-btn" data-plan="duplex">The Duplex (5,500 sq ft)</button>
+        </div>
+
+        <div class="floorplan-interactive-wrapper glassmorphic">
+          <!-- Interactive Floorplan Render (SVG) -->
+          <div class="floorplan-map-side">
+            <svg id="interactive-floorplan-svg" viewBox="0 0 800 500" class="floorplan-svg">
+              <!-- Outline Outer Boundary -->
+              <rect x="20" y="20" width="760" height="460" rx="10" fill="none" stroke="rgba(255, 255, 255, 0.15)" stroke-width="2"/>
+              
+              <!-- Master Bedroom Zone -->
+              <g class="floorplan-zone" id="zone-master-bedroom" data-title="Master Bedroom" data-size="1,200 Sq.Ft" data-finish="Italian Walnut & Champagne Silk Panel Walls" data-ceiling="3.8m Integrated Cove Light">
+                <rect x="40" y="40" width="220" height="180" fill="rgba(212, 175, 55, 0.03)" class="zone-rect"/>
+                <rect x="40" y="40" width="220" height="180" fill="none" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.5"/>
+                <text x="150" y="130" class="zone-label">Master Suite</text>
+              </g>
+
+              <!-- Master Bathroom Zone -->
+              <g class="floorplan-zone" id="zone-master-bath" data-title="Master Ensuite Bath" data-size="450 Sq.Ft" data-finish="Statue Bookmatch Marble & Gilded Fixtures" data-ceiling="3.2m with Sky Dome skylight">
+                <rect x="40" y="220" width="120" height="130" fill="rgba(212, 175, 55, 0.03)" class="zone-rect"/>
+                <rect x="40" y="220" width="120" height="130" fill="none" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.5"/>
+                <text x="100" y="285" class="zone-label">Ensuite</text>
+              </g>
+
+              <!-- Living Hall Zone -->
+              <g class="floorplan-zone" id="zone-living-hall" data-title="The Grand Living Hall" data-size="2,800 Sq.Ft" data-finish="Extra-white Calacatta Marble & Acoustic Paneling" data-ceiling="6.2m Double Height Vault">
+                <rect x="260" y="40" width="300" height="310" fill="rgba(212, 175, 55, 0.03)" class="zone-rect"/>
+                <rect x="260" y="40" width="300" height="310" fill="none" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.5"/>
+                <text x="410" y="200" class="zone-label">Living Hall</text>
+              </g>
+
+              <!-- Dining Space Zone -->
+              <g class="floorplan-zone" id="zone-dining" data-title="The Dining Salon" data-size="950 Sq.Ft" data-finish="Brushed Oak Floors & Gold leaf cornices" data-ceiling="4.2m Plaster Finish">
+                <rect x="560" y="40" width="200" height="160" fill="rgba(212, 175, 55, 0.03)" class="zone-rect"/>
+                <rect x="560" y="40" width="200" height="160" fill="none" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.5"/>
+                <text x="660" y="120" class="zone-label">Dining Salon</text>
+              </g>
+
+              <!-- Kitchen Zone -->
+              <g class="floorplan-zone" id="zone-kitchen" data-title="Show Kitchen" data-size="600 Sq.Ft" data-finish="Travertine Countertops & Gaggenau Appliances" data-ceiling="3.5m concealed exhaust ventilations">
+                <rect x="560" y="200" width="200" height="150" fill="rgba(212, 175, 55, 0.03)" class="zone-rect"/>
+                <rect x="560" y="200" width="200" height="150" fill="none" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.5"/>
+                <text x="660" y="275" class="zone-label">Kitchen</text>
+              </g>
+
+              <!-- Outdoor Terrace & Infinity Pool -->
+              <g class="floorplan-zone" id="zone-terrace" data-title="Terrace & Infinity Pool" data-size="2,500 Sq.Ft" data-finish="Anti-slip premium Travertine & Glass Pool Rails" data-ceiling="Open Sky Parapet">
+                <rect x="160" y="350" width="600" height="110" fill="rgba(212, 175, 55, 0.03)" class="zone-rect"/>
+                <rect x="160" y="350" width="600" height="110" fill="none" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.5"/>
+                <!-- Infinity Pool Inner Path -->
+                <rect x="300" y="370" width="400" height="70" fill="rgba(64, 150, 238, 0.1)" stroke="rgba(64, 150, 238, 0.5)"/>
+                <text x="500" y="410" class="zone-label" fill="#4a90e2">Private Sky Pool</text>
+                <text x="210" y="410" class="zone-label">Terrace</text>
+              </g>
+              
+              <!-- Guest Suite -->
+              <g class="floorplan-zone" id="zone-guest-suite" data-title="Guest VIP Suite" data-size="700 Sq.Ft" data-finish="Satin walls & Teak wood flooring" data-ceiling="3.5m Cove lights">
+                <rect x="40" y="350" width="120" height="110" fill="rgba(212, 175, 55, 0.03)" class="zone-rect"/>
+                <rect x="40" y="350" width="120" height="110" fill="none" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.5"/>
+                <text x="100" y="410" class="zone-label">VIP Guest</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Description Panel Side -->
+          <div class="floorplan-info-side">
+            <div class="fp-info-header">
+              <span class="gold-subtitle" id="fp-selected-code">ZONE DETAILS</span>
+              <h3 id="fp-room-name">Hover Over A Space</h3>
+              <p class="fp-desc-text">Explore Aurelia's premium layout. Hover on the floorplan sections to check room specifications, luxury finishes, and dimensions.</p>
+            </div>
+            
+            <div class="fp-specs-list">
+              <div class="fp-spec-item">
+                <span class="fp-spec-label"><i class="fa-solid fa-maximize"></i> Net Size:</span>
+                <span class="fp-spec-val" id="fp-room-size">-</span>
+              </div>
+              <div class="fp-spec-item">
+                <span class="fp-spec-label"><i class="fa-solid fa-paint-roller"></i> Prime Finish:</span>
+                <span class="fp-spec-val" id="fp-room-finish">-</span>
+              </div>
+              <div class="fp-spec-item">
+                <span class="fp-spec-label"><i class="fa-solid fa-arrows-up-down"></i> Ceiling Height:</span>
+                <span class="fp-spec-val" id="fp-room-ceiling">-</span>
+              </div>
+            </div>
+
+            <div class="fp-luxury-badge">
+              <i class="fa-solid fa-shield-halved gold-text"></i>
+              <div>
+                <h4>Bespoke Material Guarantee</h4>
+                <p>Owners can customize stones, cabinetry, and fixtures directly with our design consultants.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Property Comparison Section -->
+    <section id="comparison-section" class="section-padding dark-bg">
+      <div class="container">
+        <div class="section-header center-align">
+          <span class="gold-subtitle">SIDE-BY-SIDE ANALYTICS</span>
+          <h2 class="serif-title">Property Comparison</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <div class="table-responsive-wrapper">
+          <table class="comparison-table glassmorphic" id="comparison-matrix">
+            <thead>
+              <tr>
+                <th class="matrix-head">Features</th>
+                <th>The Duplex Residence</th>
+                <th class="gold-highlight-header">The Sky Villa</th>
+                <th>The Grand Penthouse</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="feature-label">Residences Range</td>
+                <td>Floors 25 - 35</td>
+                <td class="gold-highlight-col">Floors 40 - 50</td>
+                <td>Floors 52 - 54</td>
+              </tr>
+              <tr>
+                <td class="feature-label">Size Area</td>
+                <td>5,500 Sq.Ft</td>
+                <td class="gold-highlight-col">6,200 Sq.Ft</td>
+                <td>8,500 Sq.Ft</td>
+              </tr>
+              <tr>
+                <td class="feature-label">Bedrooms Count</td>
+                <td>4 BHK</td>
+                <td class="gold-highlight-col">4 BHK</td>
+                <td>5 BHK</td>
+              </tr>
+              <tr>
+                <td class="feature-label">Ceiling Height</td>
+                <td>4.2 Meters</td>
+                <td class="gold-highlight-col">4.5 Meters</td>
+                <td>6.2 Meters</td>
+              </tr>
+              <tr>
+                <td class="feature-label">Private Elevator Foyer</td>
+                <td><i class="fa-solid fa-check gold-text"></i> Yes</td>
+                <td class="gold-highlight-col"><i class="fa-solid fa-check gold-text"></i> Yes</td>
+                <td><i class="fa-solid fa-check gold-text"></i> Yes</td>
+              </tr>
+              <tr>
+                <td class="feature-label">Private Infinity Pool</td>
+                <td><i class="fa-solid fa-xmark text-muted"></i> No</td>
+                <td class="gold-highlight-col"><i class="fa-solid fa-check gold-text"></i> Yes (15m)</td>
+                <td><i class="fa-solid fa-check gold-text"></i> Yes (25m)</td>
+              </tr>
+              <tr>
+                <td class="feature-label">Smart Automation</td>
+                <td>Crestron Basic</td>
+                <td class="gold-highlight-col">Crestron Signature</td>
+                <td>Crestron Ultimate + Voice</td>
+              </tr>
+              <tr>
+                <td class="feature-label">Staff Quarters</td>
+                <td>1 Room (Ensuite)</td>
+                <td class="gold-highlight-col">1 Room (Ensuite)</td>
+                <td>2 Rooms (Ensuite)</td>
+              </tr>
+              <tr>
+                <td class="feature-label">Car Parks</td>
+                <td>3 Slots</td>
+                <td class="gold-highlight-col">4 Slots (EV Ready)</td>
+                <td>6 Slots (EV Ready, Gated)</td>
+              </tr>
+              <tr>
+                <td class="feature-label">Pricing Status</td>
+                <td><span class="price-request">Upon Request</span></td>
+                <td class="gold-highlight-col"><span class="price-request gold-text">Upon Request</span></td>
+                <td><span class="price-request">Upon Request</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. 360° Virtual Property Tour Mock Section -->
+    <section id="virtualtour-section" class="section-padding black-bg">
+      <div class="container">
+        <div class="section-header center-align">
+          <span class="gold-subtitle">IMMERSIVE INTERACTIVE</span>
+          <h2 class="serif-title">360° Virtual Tour</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <div class="virtual-tour-wrapper glassmorphic">
+          <!-- Viewport window -->
+          <div class="vt-viewport" id="vt-viewport-window">
+            
+            <!-- Panoramic Sliding Background -->
+            <div class="vt-panorama" id="vt-panorama-track" style="background-image: url('assets/scene4_living.png');">
+              
+              <!-- Hotspot 1: Flooring -->
+              <div class="vt-hotspot" style="left: 30%; top: 75%;" data-tip="Italian Calacatta Gold Marble Flooring. Handpicked from Tuscan quarries, bookmatched to perfection.">
+                <div class="hotspot-pulse"></div>
+                <i class="fa-solid fa-circle-info"></i>
+              </div>
+
+              <!-- Hotspot 2: Windows -->
+              <div class="vt-hotspot" style="left: 60%; top: 40%;" data-tip="Triple-glazed Acoustic Glazing. Full UV filtration, climate barrier, and total city noise dampening (under 25dB).">
+                <div class="hotspot-pulse"></div>
+                <i class="fa-solid fa-circle-info"></i>
+              </div>
+
+              <!-- Hotspot 3: Sound System -->
+              <div class="vt-hotspot" style="left: 75%; top: 25%;" data-tip="Bang & Olufsen Beosound Integrated Speakers. Concealed plaster architectural sound, immersive acoustic zoning.">
+                <div class="hotspot-pulse"></div>
+                <i class="fa-solid fa-circle-info"></i>
+              </div>
+
+            </div>
+
+            <!-- Virtual Tour HUD Overlay UI -->
+            <div class="vt-hud">
+              <div class="vt-hud-left">
+                <span class="live-tag"><span class="pulse-dot"></span> Pano Walkthrough</span>
+                <h4 id="vt-active-room">Grand Living Hall</h4>
+              </div>
+              <div class="vt-hud-right">
+                <span class="drag-hint"><i class="fa-solid fa-arrows-left-right"></i> Drag or Swipe to Look Around</span>
+              </div>
+            </div>
+
+            <!-- Toast Detail Overlay -->
+            <div class="vt-info-toast" id="vt-toast">
+              <button class="toast-close" id="vt-toast-close">&times;</button>
+              <h5 class="gold-text">SPECS HIGHLIGHT</h5>
+              <p id="vt-toast-body">Click on any glowing golden hotspot pin to explore premium finish details.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Image Gallery Section with Filters -->
+    <section id="gallery-section" class="section-padding dark-bg">
+      <div class="container">
+        <div class="section-header center-align">
+          <span class="gold-subtitle">VISUAL TREASURES</span>
+          <h2 class="serif-title">Photo Gallery</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="gallery-filters">
+          <button class="filter-btn active" data-filter="all">All Renders</button>
+          <button class="filter-btn" data-filter="exterior">Exteriors</button>
+          <button class="filter-btn" data-filter="interior">Interiors</button>
+          <button class="filter-btn" data-filter="amenities">Amenities</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid" id="gallery-grid">
+          
+          <div class="gallery-item exterior" data-src="assets/scene1_arrival.png">
+            <img src="assets/scene1_arrival.png" alt="Aurelia Tower Golden Hour Skyline">
+            <div class="gallery-hover-overlay">
+              <span class="zoom-icon"><i class="fa-solid fa-expand"></i></span>
+              <h4>Building Exterior</h4>
+              <p>Champagne Gold Tower Facade</p>
+            </div>
+          </div>
+
+          <div class="gallery-item interior" data-src="assets/scene4_living.png">
+            <img src="assets/scene4_living.png" alt="Grand Living Room Double Height">
+            <div class="gallery-hover-overlay">
+              <span class="zoom-icon"><i class="fa-solid fa-expand"></i></span>
+              <h4>Great Hall</h4>
+              <p>Panoramic Skyline View</p>
+            </div>
+          </div>
+
+          <div class="gallery-item interior" data-src="assets/scene5_dining.png">
+            <img src="assets/scene5_dining.png" alt="Curated Dining Salon Room">
+            <div class="gallery-hover-overlay">
+              <span class="zoom-icon"><i class="fa-solid fa-expand"></i></span>
+              <h4>Dining Salon</h4>
+              <p>Custom Fine Pendant Lighting</p>
+            </div>
+          </div>
+
+          <div class="gallery-item interior" data-src="assets/scene6_kitchen.png">
+            <img src="assets/scene6_kitchen.png" alt="Designer Chef Kitchen Modular">
+            <div class="gallery-hover-overlay">
+              <span class="zoom-icon"><i class="fa-solid fa-expand"></i></span>
+              <h4>Gaggenau Kitchen</h4>
+              <p>White Marble Island Countertops</p>
+            </div>
+          </div>
+
+          <div class="gallery-item interior" data-src="assets/scene7_bedroom.png">
+            <img src="assets/scene7_bedroom.png" alt="Luxury Master Bedroom Suite">
+            <div class="gallery-hover-overlay">
+              <span class="zoom-icon"><i class="fa-solid fa-expand"></i></span>
+              <h4>Master Bedroom</h4>
+              <p>Floor-to-ceiling Window Vista</p>
+            </div>
+          </div>
+
+          <div class="gallery-item amenities" data-src="assets/scene9_outdoor.png">
+            <img src="assets/scene9_outdoor.png" alt="Skyline Infinity Pool Poolside">
+            <div class="gallery-hover-overlay">
+              <span class="zoom-icon"><i class="fa-solid fa-expand"></i></span>
+              <h4>Infinity Sky Pool</h4>
+              <p>Rooftop Dusk Overlooks</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Lightbox Modal -->
+    <div class="lightbox-modal" id="lightbox">
+      <span class="lightbox-close" id="lightbox-close">&times;</span>
+      <button class="lightbox-nav-btn prev" id="lightbox-prev" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
+      <img class="lightbox-content" id="lightbox-img" src="" alt="">
+      <div id="lightbox-caption"></div>
+      <button class="lightbox-nav-btn next" id="lightbox-next" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <!-- 9. Amenities Section -->
+    <section id="amenities-section" class="section-padding black-bg">
+      <div class="container">
+        <div class="section-header center-align">
+          <span class="gold-subtitle">THE CLUB AURELIA</span>
+          <h2 class="serif-title">World-Class Conveniences</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <div class="amenities-grid">
+          
+          <!-- Amenity 1 -->
+          <div class="amenity-card glassmorphic" data-tilt>
+            <div class="amenity-icon-box">
+              <i class="fa-solid fa-swimming-pool"></i>
+            </div>
+            <h3>Rooftop Infinity Pool</h3>
+            <p>A 25-meter heated swimming pool flowing seamlessly into the skyline, surrounded by luxury private cabanas.</p>
+          </div>
+
+          <!-- Amenity 2 -->
+          <div class="amenity-card glassmorphic" data-tilt>
+            <div class="amenity-icon-box">
+              <i class="fa-solid fa-champagne-glasses"></i>
+            </div>
+            <h3>The Horizon Lounge</h3>
+            <p>An exclusive 50th-floor cigar bar and sky lounge equipped with a sommelier-curated private wine storage.</p>
+          </div>
+
+          <!-- Amenity 3 -->
+          <div class="amenity-card glassmorphic" data-tilt>
+            <div class="amenity-icon-box">
+              <i class="fa-solid fa-dumbbell"></i>
+            </div>
+            <h3>Olympic Fitness Suite</h3>
+            <p>State-of-the-art cardiovascular and strength machinery from Technogym with personal trainers on-call.</p>
+          </div>
+
+          <!-- Amenity 4 -->
+          <div class="amenity-card glassmorphic" data-tilt>
+            <div class="amenity-icon-box">
+              <i class="fa-solid fa-spa"></i>
+            </div>
+            <h3>Aura Wellness Spa</h3>
+            <p>Thermal baths, Swedish massage therapy, cryotherapy chambers, and private meditation zones.</p>
+          </div>
+
+          <!-- Amenity 5 -->
+          <div class="amenity-card glassmorphic" data-tilt>
+            <div class="amenity-icon-box">
+              <i class="fa-solid fa-film"></i>
+            </div>
+            <h3>Dolby Atmos Cinema</h3>
+            <p>A private 14-seat screening theatre with premium leather reclining loungers and a private popcorn bar.</p>
+          </div>
+
+          <!-- Amenity 6 -->
+          <div class="amenity-card glassmorphic" data-tilt>
+            <div class="amenity-icon-box">
+              <i class="fa-solid fa-helicopter"></i>
+            </div>
+            <h3>Certified Helipad</h3>
+            <p>Rooftop structural pad built for private helicopter passenger arrivals and rapid medical evacuation.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Location Section with Interactive Map -->
+    <section id="location-section" class="section-padding dark-bg">
+      <div class="container">
+        <div class="section-header center-align">
+          <span class="gold-subtitle">PRESTIGIOUS DISTRICT</span>
+          <h2 class="serif-title">Neighborhood & Location</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <div class="location-map-grid glassmorphic">
+          <!-- List of points of interest -->
+          <div class="map-sidebar">
+            <h4 class="sidebar-title">Nearby Conveniences</h4>
+            <div class="poi-list">
+              
+              <div class="poi-item active" data-lat="40.7580" data-lng="-73.9855" data-desc="The iconic international airport terminal, accessible within minutes via personal concierge shuttle.">
+                <div class="poi-icon"><i class="fa-solid fa-plane"></i></div>
+                <div class="poi-details">
+                  <h5>International Airport</h5>
+                  <p>12 Mins &bull; 8.4 Miles</p>
+                </div>
+              </div>
+
+              <div class="poi-item" data-lat="40.7680" data-lng="-73.9815" data-desc="Prestigious private Yacht Harbor and marina, offering members-only docking and superyacht charters.">
+                <div class="poi-icon"><i class="fa-solid fa-ship"></i></div>
+                <div class="poi-details">
+                  <h5>Royal Yacht Marina</h5>
+                  <p>8 Mins &bull; 4.2 Miles</p>
+                </div>
+              </div>
+
+              <div class="poi-item" data-lat="40.7480" data-lng="-73.9955" data-desc="Championship 18-hole golf range with premium private clubrooms and green fairways.">
+                <div class="poi-icon"><i class="fa-solid fa-golf-ball-tee"></i></div>
+                <div class="poi-details">
+                  <h5>Aurelia Golf Links</h5>
+                  <p>15 Mins &bull; 9.1 Miles</p>
+                </div>
+              </div>
+
+              <div class="poi-item" data-lat="40.7530" data-lng="-73.9755" data-desc="Luxury shopping destination showcasing flagship boutiques of premier fashion lines.">
+                <div class="poi-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                <div class="poi-details">
+                  <h5>The Promenade Galleria</h5>
+                  <p>5 Mins &bull; 2.0 Miles</p>
+                </div>
+              </div>
+
+              <div class="poi-item" data-lat="40.7630" data-lng="-73.9900" data-desc="Reputable private boarding academy featuring elite Ivy-league preparatory programs.">
+                <div class="poi-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="poi-details">
+                  <h5>St. Jude Academy</h5>
+                  <p>9 Mins &bull; 5.0 Miles</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Leaflet Map Container -->
+          <div class="map-viewport-wrapper">
+            <div id="leaflet-map-container"></div>
+            <div class="map-loading-overlay" id="map-loader">
+              <div class="spinner"></div>
+              <span>Calibrating Satellite Matrix...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Construction Progress Timeline Section -->
+    <section id="timeline-section" class="section-padding black-bg">
+      <div class="container">
+        <div class="section-header center-align">
+          <span class="gold-subtitle">PROJECT MILESTONES</span>
+          <h2 class="serif-title">Construction Timeline</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <div class="timeline-container">
+          
+          <!-- Node 1 -->
+          <div class="timeline-node completed">
+            <div class="timeline-dot"><i class="fa-solid fa-check"></i></div>
+            <div class="timeline-card glassmorphic">
+              <span class="node-date">Q1 2025</span>
+              <h3>Excavation & Foundations</h3>
+              <p>Core tower structural pilings driven 45 meters into bedrock. Seismic damping arrays installed.</p>
+              <div class="node-progress-badge">100% Complete</div>
+            </div>
+          </div>
+
+          <!-- Node 2 -->
+          <div class="timeline-node completed">
+            <div class="timeline-dot"><i class="fa-solid fa-check"></i></div>
+            <div class="timeline-card glassmorphic">
+              <span class="node-date">Q4 2025</span>
+              <h3>Superstructure Topping Out</h3>
+              <p>Reinforced concrete core reached 54 levels. Main steel frame and floor plates locked.</p>
+              <div class="node-progress-badge">100% Complete</div>
+            </div>
+          </div>
+
+          <!-- Node 3 -->
+          <div class="timeline-node active">
+            <div class="timeline-dot"><i class="fa-solid fa-spinner fa-spin gold-text"></i></div>
+            <div class="timeline-card glassmorphic">
+              <span class="node-date">Q3 2026</span>
+              <h3>Glass Facade & Windows</h3>
+              <p>Cladding and custom thermal acoustic glass installation. Current completion rate at 85%.</p>
+              <div class="node-progress-badge gold-text">85% In Progress</div>
+            </div>
+          </div>
+
+          <!-- Node 4 -->
+          <div class="timeline-node pending">
+            <div class="timeline-dot"><i class="fa-solid fa-clock"></i></div>
+            <div class="timeline-card glassmorphic">
+              <span class="node-date">Q1 2027</span>
+              <h3>Interior Fitting & Finishing</h3>
+              <p>Italian marble flooring laying, smart automation integration, and designer lobby fixtures.</p>
+              <div class="node-progress-badge text-muted">Upcoming</div>
+            </div>
+          </div>
+
+          <!-- Node 5 -->
+          <div class="timeline-node pending">
+            <div class="timeline-dot"><i class="fa-solid fa-key"></i></div>
+            <div class="timeline-card glassmorphic">
+              <span class="node-date">Q3 2027</span>
+              <h3>Inspections & Handover</h3>
+              <p>Rigorous quality checks, municipal clearances, and keys delivery to residences owners.</p>
+              <div class="node-progress-badge text-muted">Upcoming</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. Mortgage Calculator Section -->
+    <section id="calculator-section" class="section-padding dark-bg">
+      <div class="container">
+        <div class="section-header center-align">
+          <span class="gold-subtitle">FINANCIAL CONCIERGE</span>
+          <h2 class="serif-title">Mortgage Calculator</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <div class="calculator-grid glassmorphic">
+          
+          <!-- Controls Panel -->
+          <div class="calc-controls">
+            
+            <div class="calc-slider-group">
+              <div class="slider-header">
+                <label for="prop-value">Residences Value ($)</label>
+                <span class="value-display" id="prop-value-txt">$7,500,000</span>
+              </div>
+              <input type="range" id="prop-value" min="2000000" max="25000000" step="100000" value="7500000" class="luxury-range">
+              <div class="range-labels">
+                <span>$2M</span>
+                <span>$25M</span>
+              </div>
+            </div>
+
+            <div class="calc-slider-group">
+              <div class="slider-header">
+                <label for="down-payment">Down Payment ($)</label>
+                <span class="value-display" id="down-payment-txt">$1,500,000 (20%)</span>
+              </div>
+              <input type="range" id="down-payment" min="400000" max="10000000" step="50000" value="1500000" class="luxury-range">
+              <div class="range-labels">
+                <span id="down-payment-min">$400K</span>
+                <span id="down-payment-max">$10M</span>
+              </div>
+            </div>
+
+            <div class="calc-slider-group">
+              <div class="slider-header">
+                <label for="interest-rate">Interest Rate (%)</label>
+                <span class="value-display" id="interest-rate-txt">4.5%</span>
+              </div>
+              <input type="range" id="interest-rate" min="1.0" max="8.0" step="0.1" value="4.5" class="luxury-range">
+              <div class="range-labels">
+                <span>1%</span>
+                <span>8%</span>
+              </div>
+            </div>
+
+            <div class="calc-slider-group">
+              <div class="slider-header">
+                <label for="loan-term">Loan Term (Years)</label>
+                <span class="value-display" id="loan-term-txt">20 Years</span>
+              </div>
+              <input type="range" id="loan-term" min="5" max="30" step="5" value="20" class="luxury-range">
+              <div class="range-labels">
+                <span>5 Yrs</span>
+                <span>30 Yrs</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Outputs Panel -->
+          <div class="calc-results">
+            
+            <div class="chart-box">
+              <!-- Dynamic SVG Donut Chart -->
+              <svg viewBox="0 0 200 200" class="donut-chart-svg">
+                <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="15"/>
+                <!-- Principal segment -->
+                <circle cx="100" cy="100" r="70" fill="none" stroke="#D4AF37" stroke-width="15" id="chart-principal-segment" stroke-dasharray="220 440" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+                <!-- Interest segment -->
+                <circle cx="100" cy="100" r="70" fill="none" stroke="#C5A880" stroke-width="15" id="chart-interest-segment" stroke-dasharray="220 440" stroke-dashoffset="-220" transform="rotate(-90 100 100)"/>
+              </svg>
+              <div class="chart-center-label">
+                <span class="chart-label">Monthly EMI</span>
+                <span class="chart-emi-value" id="monthly-emi-txt">$37,948</span>
+              </div>
+            </div>
+
+            <div class="calc-stats">
+              <div class="stat-row">
+                <span class="stat-indicator principal-dot"></span>
+                <span>Principal Financed:</span>
+                <strong id="financed-amt-txt">$6,000,000</strong>
+              </div>
+              <div class="stat-row">
+                <span class="stat-indicator interest-dot"></span>
+                <span>Estimated Monthly Interest:</span>
+                <strong id="interest-amt-txt">$15,448</strong>
+              </div>
+              <div class="stat-row">
+                <span class="stat-indicator total-dot"></span>
+                <span>Total Repayment:</span>
+                <strong id="total-repayment-txt">$9,107,520</strong>
+              </div>
+            </div>
+
+            <a href="#booking-section" class="btn btn-gold w-full text-center">Consult Wealth Advisor</a>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 12b. Developer Profile & Awards Section -->
+    <section id="developer-section" class="section-padding dark-bg scroll-reveal-section">
+      <div class="container">
+        <div class="section-header center-align">
+          <span class="gold-subtitle">THE VISIONARIES</span>
+          <h2 class="serif-title">Heritage of Aurelia Holdings</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <div class="developer-grid glassmorphic">
+          <div class="developer-visual-box">
+            <div class="dev-symbol-wrapper">
+              <svg viewBox="0 0 100 100" class="dev-gold-logo-svg">
+                <path d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z" fill="none" stroke="#D4AF37" stroke-width="2"/>
+                <line x1="50" y1="5" x2="50" y2="95" stroke="#D4AF37" stroke-dasharray="1 1"/>
+                <line x1="10" y1="28" x2="90" y2="72" stroke="#D4AF37" stroke-dasharray="1 1"/>
+                <line x1="10" y1="72" x2="90" y2="28" stroke="#D4AF37" stroke-dasharray="1 1"/>
+              </svg>
+              <div class="dev-est">EST. 1984</div>
+            </div>
+          </div>
+          <div class="developer-text-box">
+            <span class="gold-tag">ARCHITECTURAL LEGACY</span>
+            <h3>Sculpting Global Skylines</h3>
+            <p>For more than four decades, Aurelia Holdings has designed and built iconic residential landmarks globally. Renowned for structural excellence, architectural audacity, and uncompromising finishes, we redefine luxury living as a collectible art form. Each project is a collaboration with world-renowned architects, master stone-carvers, and leading sustainability engineers.</p>
+            
+            <div class="developer-stats-row">
+              <div class="dev-stat-card">
+                <span class="stat-number">40+</span>
+                <span class="stat-label">Years of Mastery</span>
+              </div>
+              <div class="dev-stat-card">
+                <span class="stat-number">12</span>
+                <span class="stat-label">Global Capitals</span>
+              </div>
+              <div class="dev-stat-card">
+                <span class="stat-number">10k+</span>
+                <span class="stat-label">Luxury Keys</span>
+              </div>
+            </div>
+            
+            <h4 class="sub-awards-title"><i class="fa-solid fa-trophy gold-text"></i> Prestigious Design Accolades</h4>
+            <div class="awards-grid-list">
+              <div class="award-item">
+                <span class="award-year">2026</span>
+                <div class="award-desc">
+                  <h5>Global Architecture Excellence Award</h5>
+                  <p>Aurelia Tower Design, Paris Summit</p>
+                </div>
+              </div>
+              <div class="award-item">
+                <span class="award-year">2025</span>
+                <div class="award-desc">
+                  <h5>LEED Platinum Certification</h5>
+                  <p>Recognized for Green Architecture & Core Efficiency</p>
+                </div>
+              </div>
+              <div class="award-item">
+                <span class="award-year">2024</span>
+                <div class="award-desc">
+                  <h5>Best Residential Development (International)</h5>
+                  <p>Luxury Living Awards, London</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. Schedule Site Visit & Contact Form Section -->
+    <section id="booking-section" class="section-padding black-bg">
+      <div class="container">
+        <div class="booking-contact-wrapper glassmorphic">
+          
+          <!-- Booking Side -->
+          <div class="booking-form-box">
+            <span class="gold-subtitle">EXCLUSIVE VISIT</span>
+            <h2 class="serif-title">Schedule A Private Tour</h2>
+            <p class="form-intro">Select your preferred date and time slot. Our elite concierge team will contact you to coordinate private limousine pick-up.</p>
+            
+            <form id="visit-booking-form">
+              <div class="form-row">
+                <div class="input-group">
+                  <input type="text" id="visit-name" required placeholder=" ">
+                  <label for="visit-name">Full Name</label>
+                </div>
+                <div class="input-group">
+                  <input type="email" id="visit-email" required placeholder=" ">
+                  <label for="visit-email">Email Address</label>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="input-group">
+                  <input type="tel" id="visit-phone" required placeholder=" ">
+                  <label for="visit-phone">Phone Number</label>
+                </div>
+                <div class="input-group">
+                  <input type="date" id="visit-date" required placeholder=" ">
+                  <label for="visit-date">Preferred Date</label>
+                </div>
+              </div>
+
+              <div class="time-slots-wrapper">
+                <label class="section-label">Select Time Slot</label>
+                <div class="time-slots">
+                  <button type="button" class="slot-btn active" data-slot="Morning (09:00 AM - 12:00 PM)">Morning</button>
+                  <button type="button" class="slot-btn" data-slot="Afternoon (12:00 PM - 04:00 PM)">Afternoon</button>
+                  <button type="button" class="slot-btn" data-slot="Evening (04:00 PM - 07:00 PM)">Evening</button>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-gold w-full"><i class="fa-solid fa-calendar-check"></i> Request Concierge Booking</button>
+            </form>
+
+            <!-- Success message overlay -->
+            <div class="form-success-overlay" id="booking-success">
+              <div class="success-content">
+                <i class="fa-regular fa-circle-check success-icon"></i>
+                <h3>Booking Requested</h3>
+                <p>An elite hospitality specialist has been assigned to your profile and will coordinate via phone shortly.</p>
+                <button class="btn btn-border-gold btn-sm" id="close-success-btn">Dismiss</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Contact / Info Side -->
+          <div class="developer-info-box">
+            <span class="gold-subtitle">DEVELOPER DESK</span>
+            <h2 class="serif-title">Aurelia Holdings</h2>
+            <p>For over four decades, Aurelia Holdings has designed and built iconic residential landmarks globally. Renowned for structural excellence, architectural audacity, and uncompromising finishes.</p>
+            
+            <div class="contact-details-list">
+              <div class="contact-detail-item">
+                <i class="fa-solid fa-map-location-dot gold-text"></i>
+                <div>
+                  <h5>Global Headquarters</h5>
+                  <p>750 Fifth Avenue, Floor 44, New York, NY 10019</p>
+                </div>
+              </div>
+              <div class="contact-detail-item">
+                <i class="fa-solid fa-phone-volume gold-text"></i>
+                <div>
+                  <h5>Concierge Hotline</h5>
+                  <p>+1 (800) 555-AURELIA</p>
+                </div>
+              </div>
+              <div class="contact-detail-item">
+                <i class="fa-solid fa-envelope-open-text gold-text"></i>
+                <div>
+                  <h5>Enquiries Email</h5>
+                  <p>concierge@aureliaresidences.com</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Awards / Certifications sub-row -->
+            <div class="awards-mini-row">
+              <div class="award-logo">
+                <i class="fa-solid fa-award"></i>
+                <span>Best Architecture 2025</span>
+              </div>
+              <div class="award-logo">
+                <i class="fa-solid fa-leaf"></i>
+                <span>LEED Gold Certified</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 13b. Testimonials Section -->
+    <section id="testimonials-section" class="section-padding black-bg scroll-reveal-section">
+      <div class="container">
+        <div class="section-header center-align">
+          <span class="gold-subtitle">PATRON PERSPECTIVES</span>
+          <h2 class="serif-title">Words From Our Residents</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <div class="testimonials-slider-wrapper glassmorphic">
+          <div class="testimonial-quotes-track" id="testimonials-track">
+            
+            <!-- Slide 1 -->
+            <div class="testimonial-slide active">
+              <div class="quote-symbol"><i class="fa-solid fa-quote-left"></i></div>
+              <p class="quote-text">Aurelia Residences is not merely a home; it is a cinematic masterpiece. Waking up to the floor-to-ceiling panoramic skyline view is an experience that never ceases to inspire. The concierge service is impeccable, anticipating every detail of my day with flawless limousine and security coordination.</p>
+              <div class="patron-info">
+                <h4 class="patron-name">Maximilian V. Vance</h4>
+                <p class="patron-title">Global Hedge Fund Founder & Sky Villa Owner</p>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="testimonial-slide">
+              <div class="quote-symbol"><i class="fa-solid fa-quote-left"></i></div>
+              <p class="quote-text">The level of craftsmanship is extraordinary. The bookmatched Calacatta marble and handpicked Italian walnut finishes reflect a level of precision that matches my personal design standards. Aurelia’s private helipad and luxury spa facilities offer total discretion and retreat.</p>
+              <div class="patron-info">
+                <h4 class="patron-name">Lady Genevieve Sinclair</h4>
+                <p class="patron-title">Philanthropist & Grand Penthouse Owner</p>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="testimonial-slide">
+              <div class="quote-symbol"><i class="fa-solid fa-quote-left"></i></div>
+              <p class="quote-text">As a frequent traveler across global financial hubs, Aurelia Residences offers the most advanced private security, biometric systems, and climate acoustics. It feels like an private luxury hotel in the sky. The construction timeline and communication from developer desk were outstanding.</p>
+              <div class="patron-info">
+                <h4 class="patron-name">Sir Edward Sterling</h4>
+                <p class="patron-title">International Logistics Industrialist</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Slider Controls -->
+          <div class="testimonials-controls">
+            <button class="t-control-btn prev" id="test-prev" aria-label="Previous Testimonial"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="t-dots" id="t-dots-container">
+              <span class="t-dot active" data-index="0"></span>
+              <span class="t-dot" data-index="1"></span>
+              <span class="t-dot" data-index="2"></span>
+            </div>
+            <button class="t-control-btn next" id="test-next" aria-label="Next Testimonial"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. FAQ Section -->
+    <section class="section-padding dark-bg">
+      <div class="container">
+        <div class="section-header center-align">
+          <span class="gold-subtitle">CLARIFYING PARTICULARS</span>
+          <h2 class="serif-title">Frequently Asked Questions</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <div class="faq-accordion-wrapper" id="faq">
+          
+          <div class="faq-card glassmorphic">
+            <div class="faq-question">
+              <h4>When is the scheduled possession date for the residences?</h4>
+              <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </div>
+            <div class="faq-answer">
+              <p>Aurelia Residences is slated to receive municipal occupation certificates in Q2 2027, with owner keys handover and personalized interior fit-out inspections commencing in Q3 2027.</p>
+            </div>
+          </div>
+
+          <div class="faq-card glassmorphic">
+            <div class="faq-question">
+              <h4>Are owners permitted to bring their private interior designers?</h4>
+              <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </div>
+            <div class="faq-answer">
+              <p>Yes. While we offer curated luxury interior designs by renowned global design houses, owners have full freedom to deploy private architectural teams. Our structural and mechanical engineers will cooperate during custom layouts planning.</p>
+            </div>
+          </div>
+
+          <div class="faq-card glassmorphic">
+            <div class="faq-question">
+              <h4>What is the parking allocation per residence?</h4>
+              <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </div>
+            <div class="faq-answer">
+              <p>Each residence comes with a minimum of 3 gated car park bays. The Sky Villas are allocated 4 bays, and The Grand Penthouse includes 6 private parking bays inside a locked secure parking sub-vault, all pre-wired with high-output EV charging stations.</p>
+            </div>
+          </div>
+
+          <div class="faq-card glassmorphic">
+            <div class="faq-question">
+              <h4>How is security maintained in the building?</h4>
+              <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </div>
+            <div class="faq-answer">
+              <p>We implement military-grade security systems including biometric facial scanning at elevator portals, 24/7 armed lobby patrols, advanced license plate readers at gates, and isolated service elevators for staff and logistics deliveries.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 15. Sticky WhatsApp Chat Widget -->
+  <div class="whatsapp-chat-widget" id="whatsapp-widget">
+    <!-- Bubble -->
+    <button class="whatsapp-bubble" id="wa-bubble-btn" aria-label="Chat on WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span class="ping-badge"></span>
+    </button>
+    <!-- Chat window -->
+    <div class="whatsapp-window glassmorphic" id="wa-window">
+      <div class="wa-header">
+        <div class="wa-avatar">
+          <svg viewBox="0 0 40 40" class="avatar-svg">
+            <circle cx="20" cy="20" r="18" fill="#D4AF37"/>
+            <text x="20" y="25" font-family="'Cormorant Garamond', serif" font-size="16" fill="#0A0A0C" text-anchor="middle" font-weight="bold">C</text>
+          </svg>
+          <span class="status-indicator online"></span>
+        </div>
+        <div class="wa-info">
+          <h5>Aurelia Concierge</h5>
+          <p>Online &bull; Response rate: Instantly</p>
+        </div>
+        <button class="wa-close" id="wa-window-close">&times;</button>
+      </div>
+      <div class="wa-body">
+        <div class="wa-msg received">
+          <p>Welcome to Aurelia Residences. I am your private digital concierge. How may I assist you today?</p>
+          <span class="msg-time">Just now</span>
+        </div>
+      </div>
+      <div class="wa-footer">
+        <a href="https://wa.me/18005552873" target="_blank" rel="noopener noreferrer" class="btn btn-gold wa-btn-send">
+          <i class="fa-brands fa-whatsapp"></i> Start Live Chat
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 16. Luxury Footer -->
+  <footer id="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand-col">
+        <h3 class="gold-text">AURELIA</h3>
+        <p class="brand-sub">RESIDENCES</p>
+        <p class="footer-about">An architectural landmark scaling new heights of sophistication and cinematic scroll aesthetics.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Vimeo"><i class="fa-brands fa-vimeo-v"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Residences</h4>
+        <ul>
+          <li><a href="#properties-section">The Penthouse</a></li>
+          <li><a href="#properties-section">The Sky Villa</a></li>
+          <li><a href="#properties-section">The Duplex</a></li>
+          <li><a href="#floorplans-section">Floor Blueprints</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Assistance</h4>
+        <ul>
+          <li><a href="#booking-section">Schedule Visit</a></li>
+          <li><a href="#calculator-section">Financial Calculator</a></li>
+          <li><a href="#location-section">Neighborhood</a></li>
+          <li><a href="#faq">FAQs</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-newsletter-col">
+        <h4>Stay Informed</h4>
+        <p>Subscribe to receive construction updates and VIP private invitations.</p>
+        <form class="newsletter-form" id="newsletter-subscription">
+          <input type="email" placeholder="Your Luxury Email" required aria-label="Email for newsletter">
+          <button type="submit" aria-label="Subscribe"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+    
+    <div class="footer-bottom-bar container">
+      <p>&copy; 2026 Aurelia Holdings LLC. All rights reserved. Architectural renders are conceptual projections.</p>
+      <div class="footer-legal-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS Libraries -->
+  <!-- GSAP Animation Core -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- GSAP ScrollTrigger Plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <!-- Leaflet Map JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- Custom JS Application Logic -->
+  <script src="index.js"></script>
+</body>
+</html>
